@@ -1,0 +1,18 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.13.5, pytest-9.2.0, pluggy-1.7.0 -- <project-directory>/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: <project-directory>
+configfile: pytest.ini
+plugins: langsmith-0.14.17, anyio-4.16.0
+collecting ... collected 68 items / 64 deselected / 4 selected
+
+tests/test_llm.py::test_live_qwen3_four_cases[A] A: action=delivery_investigation status=ok latency_seconds=45.712
+PASSED
+tests/test_llm.py::test_live_qwen3_four_cases[B] B: action=payments_escalation status=ok latency_seconds=129.84
+PASSED
+tests/test_llm.py::test_live_qwen3_four_cases[C] C: action=explain_refund_pending status=warning latency_seconds=37.757
+PASSED
+tests/test_llm.py::test_live_qwen3_four_cases[D] D: action=share_tracking status=ok latency_seconds=29.633
+PASSED
+
+================= 4 passed, 64 deselected in 243.14s (0:04:03) =================

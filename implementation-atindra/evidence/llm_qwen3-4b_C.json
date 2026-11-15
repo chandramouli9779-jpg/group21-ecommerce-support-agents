@@ -1,0 +1,174 @@
+{
+  "model": "qwen3:4b",
+  "captured_at": "2026-11-14T16:36:45.497625+00:00",
+  "case_id": "C",
+  "today": "2026-11-13",
+  "settings": {
+    "temperature": 0,
+    "reasoning": null,
+    "num_predict": 2400,
+    "num_ctx": 8192,
+    "base_url": "http://127.0.0.1:11434",
+    "client_kwargs": {
+      "timeout": 180,
+      "trust_env": false
+    }
+  },
+  "max_rounds": 6,
+  "result": {
+    "agent": "LLM (Ollama + tools)",
+    "case_id": "C",
+    "action": "explain_refund_pending",
+    "rationale": "Refund status unknown; inspection pending verification",
+    "status": "warning",
+    "citations": [
+      {
+        "tool": "lookup_case_records",
+        "field": "refund_status"
+      },
+      {
+        "tool": "lookup_support_policy",
+        "field": "REFUND"
+      }
+    ],
+    "issues": [
+      "Raw action explain_refund_pending is ineligible for the supplied evidence."
+    ],
+    "trace": [
+      {
+        "round": 1,
+        "runtime_metrics": {
+          "total_duration": 20566048666,
+          "load_duration": 869500,
+          "prompt_eval_count": 492,
+          "prompt_eval_duration": 88697000,
+          "eval_count": 1096,
+          "eval_duration": 20400206000
+        }
+      },
+      {
+        "tool": "lookup_case_records",
+        "args": {
+          "case_id": "C"
+        },
+        "result": {
+          "case_id": "C",
+          "order_id": "ORD-3003",
+          "item": "kettle",
+          "today": "2026-11-13",
+          "message": "I returned the kettle on October 30. Please tell me when my refund will arrive.",
+          "claims": {
+            "found": null,
+            "intent": "refund_status",
+            "denies_receipt": false,
+            "returned_date": "2026-10-30",
+            "item": "kettle"
+          },
+          "found": true,
+          "order_status": "delivered",
+          "delivery_date": "2026-10-20",
+          "proof": "Carrier photo",
+          "tracking": null,
+          "expected_date": null,
+          "return_date": null,
+          "inspection": "unknown",
+          "inspection_date": null,
+          "refund_status": "unknown",
+          "observations": [
+            {
+              "date": "2026-10-20",
+              "field": "order_status",
+              "value": "delivered",
+              "source": "carrier"
+            },
+            {
+              "date": "2026-10-20",
+              "field": "delivery_date",
+              "value": "2026-10-20",
+              "source": "carrier"
+            }
+          ],
+          "policy": {
+            "version": "sim-v1",
+            "dnr_window_days": 7,
+            "refund_sla_business_days": 5
+          }
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "tool": "lookup_support_policy",
+        "args": {
+          "case_id": "C"
+        },
+        "result": {
+          "case_id": "C",
+          "version": "sim-v1",
+          "SAFE": "Recommend next steps only. Do not issue refunds, replacements, order changes, or carrier contact.",
+          "VERIFY": "Missing prerequisites, future events, or conflicting claims/records/history require clarification or human review. Passed inspection requires return evidence.",
+          "DNR": "For delivered-not-received reports within 7 calendar days (inclusive), recommend delivery investigation. Photo/signature proof is not required. Outside the window, seek human review.",
+          "REFUND": "Verify return evidence, passed inspection and its date, and refund status. Pending refunds are within SLA through 5 business days after inspection (Monday-Friday, exclude inspection day, no holidays). Escalate when today is after the deadline, including weekends. Explain completed refunds rather than escalating them.",
+          "TRACK": "For in-transit/shipped orders with usable tracking and an expected date not yet passed, share tracking or explain status. Missing dates require clarification; passed expected dates require review. Never fabricate delay or resolution."
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "round": 2,
+        "runtime_metrics": {
+          "total_duration": 17159610000,
+          "load_duration": 942125,
+          "prompt_eval_count": 994,
+          "prompt_eval_duration": 945354000,
+          "eval_count": 816,
+          "eval_duration": 16168268000
+        }
+      },
+      {
+        "final": {
+          "action": "explain_refund_pending",
+          "rationale": "Refund status unknown; inspection pending verification",
+          "policy_id": "REFUND",
+          "citations": [
+            {
+              "tool": "lookup_case_records",
+              "field": "refund_status"
+            },
+            {
+              "tool": "lookup_support_policy",
+              "field": "REFUND"
+            }
+          ]
+        },
+        "support_valid": false,
+        "action_eligible": false,
+        "support_errors": [
+          "Raw action explain_refund_pending is ineligible for the supplied evidence."
+        ],
+        "eligible_actions": [
+          "human_review",
+          "request_clarification"
+        ]
+      },
+      {
+        "execution": {
+          "successful_tools": [
+            "lookup_case_records",
+            "lookup_support_policy"
+          ],
+          "retrieval_complete": true,
+          "rounds": 2,
+          "repair_attempts": 0
+        },
+        "raw_content": "{\"action\": \"explain_refund_pending\", \"rationale\": \"Refund status unknown; inspection pending verification\", \"policy_id\": \"REFUND\", \"citations\": [{\"tool\": \"lookup_case_records\", \"field\": \"refund_status\"}, {\"tool\": \"lookup_support_policy\", \"field\": \"REFUND\"}]}",
+        "raw_action": "explain_refund_pending",
+        "policy_id": "REFUND"
+      }
+    ],
+    "model": "qwen3:4b",
+    "latency_seconds": 37.757
+  }
+}

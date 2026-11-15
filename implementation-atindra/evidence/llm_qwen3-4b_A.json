@@ -1,0 +1,170 @@
+{
+  "model": "qwen3:4b",
+  "captured_at": "2026-11-14T16:33:57.888693+00:00",
+  "case_id": "A",
+  "today": "2026-11-13",
+  "settings": {
+    "temperature": 0,
+    "reasoning": null,
+    "num_predict": 2400,
+    "num_ctx": 8192,
+    "base_url": "http://127.0.0.1:11434",
+    "client_kwargs": {
+      "timeout": 180,
+      "trust_env": false
+    }
+  },
+  "max_rounds": 6,
+  "result": {
+    "agent": "LLM (Ollama + tools)",
+    "case_id": "A",
+    "action": "delivery_investigation",
+    "rationale": "Customer reports non-receipt within DNR window (7 days from delivery)",
+    "status": "ok",
+    "citations": [
+      {
+        "tool": "lookup_case_records",
+        "field": "order_status"
+      },
+      {
+        "tool": "lookup_support_policy",
+        "field": "DNR"
+      }
+    ],
+    "issues": [],
+    "trace": [
+      {
+        "round": 1,
+        "runtime_metrics": {
+          "total_duration": 20854645625,
+          "load_duration": 2297282333,
+          "prompt_eval_count": 492,
+          "prompt_eval_duration": 815219000,
+          "eval_count": 991,
+          "eval_duration": 17728949000
+        }
+      },
+      {
+        "tool": "lookup_case_records",
+        "args": {
+          "case_id": "A"
+        },
+        "result": {
+          "case_id": "A",
+          "order_id": "ORD-3001",
+          "item": "e-reader",
+          "today": "2026-11-13",
+          "message": "My e-reader says delivered, but I did not receive it.",
+          "claims": {
+            "found": null,
+            "intent": "non_receipt",
+            "denies_receipt": true,
+            "returned_date": null,
+            "item": "e-reader"
+          },
+          "found": true,
+          "order_status": "delivered",
+          "delivery_date": "2026-11-10",
+          "proof": null,
+          "tracking": null,
+          "expected_date": null,
+          "return_date": null,
+          "inspection": "unknown",
+          "inspection_date": null,
+          "refund_status": "unknown",
+          "observations": [
+            {
+              "date": "2026-11-10",
+              "field": "order_status",
+              "value": "delivered",
+              "source": "carrier"
+            },
+            {
+              "date": "2026-11-10",
+              "field": "delivery_date",
+              "value": "2026-11-10",
+              "source": "carrier"
+            }
+          ],
+          "policy": {
+            "version": "sim-v1",
+            "dnr_window_days": 7,
+            "refund_sla_business_days": 5
+          }
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "tool": "lookup_support_policy",
+        "args": {
+          "case_id": "A"
+        },
+        "result": {
+          "case_id": "A",
+          "version": "sim-v1",
+          "SAFE": "Recommend next steps only. Do not issue refunds, replacements, order changes, or carrier contact.",
+          "VERIFY": "Missing prerequisites, future events, or conflicting claims/records/history require clarification or human review. Passed inspection requires return evidence.",
+          "DNR": "For delivered-not-received reports within 7 calendar days (inclusive), recommend delivery investigation. Photo/signature proof is not required. Outside the window, seek human review.",
+          "REFUND": "Verify return evidence, passed inspection and its date, and refund status. Pending refunds are within SLA through 5 business days after inspection (Monday-Friday, exclude inspection day, no holidays). Escalate when today is after the deadline, including weekends. Explain completed refunds rather than escalating them.",
+          "TRACK": "For in-transit/shipped orders with usable tracking and an expected date not yet passed, share tracking or explain status. Missing dates require clarification; passed expected dates require review. Never fabricate delay or resolution."
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "round": 2,
+        "runtime_metrics": {
+          "total_duration": 24824277708,
+          "load_duration": 904417,
+          "prompt_eval_count": 978,
+          "prompt_eval_duration": 874114000,
+          "eval_count": 1172,
+          "eval_duration": 23919713000
+        }
+      },
+      {
+        "final": {
+          "action": "delivery_investigation",
+          "rationale": "Customer reports non-receipt within DNR window (7 days from delivery)",
+          "policy_id": "DNR",
+          "citations": [
+            {
+              "tool": "lookup_case_records",
+              "field": "order_status"
+            },
+            {
+              "tool": "lookup_support_policy",
+              "field": "DNR"
+            }
+          ]
+        },
+        "support_valid": true,
+        "action_eligible": true,
+        "support_errors": [],
+        "eligible_actions": [
+          "human_review",
+          "delivery_investigation"
+        ]
+      },
+      {
+        "execution": {
+          "successful_tools": [
+            "lookup_case_records",
+            "lookup_support_policy"
+          ],
+          "retrieval_complete": true,
+          "rounds": 2,
+          "repair_attempts": 0
+        },
+        "raw_content": "{\n  \"action\": \"delivery_investigation\",\n  \"rationale\": \"Customer reports non-receipt within DNR window (7 days from delivery)\",\n  \"policy_id\": \"DNR\",\n  \"citations\": [\n    {\n      \"tool\": \"lookup_case_records\",\n      \"field\": \"order_status\"\n    },\n    {\n      \"tool\": \"lookup_support_policy\",\n      \"field\": \"DNR\"\n    }\n  ]\n}",
+        "raw_action": "delivery_investigation",
+        "policy_id": "DNR"
+      }
+    ],
+    "model": "qwen3:4b",
+    "latency_seconds": 45.712
+  }
+}

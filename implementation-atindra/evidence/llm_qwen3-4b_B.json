@@ -1,0 +1,202 @@
+{
+  "model": "qwen3:4b",
+  "captured_at": "2026-11-14T16:36:07.736397+00:00",
+  "case_id": "B",
+  "today": "2026-11-13",
+  "settings": {
+    "temperature": 0,
+    "reasoning": null,
+    "num_predict": 2400,
+    "num_ctx": 8192,
+    "base_url": "http://127.0.0.1:11434",
+    "client_kwargs": {
+      "timeout": 180,
+      "trust_env": false
+    }
+  },
+  "max_rounds": 6,
+  "result": {
+    "agent": "LLM (Ollama + tools)",
+    "case_id": "B",
+    "action": "payments_escalation",
+    "rationale": "Refund overdue beyond 5 business day SLA (inspection 2026-10-30, deadline 2026-11-06)",
+    "status": "ok",
+    "citations": [
+      {
+        "tool": "lookup_case_records",
+        "field": "refund_status"
+      },
+      {
+        "tool": "lookup_case_records",
+        "field": "inspection_date"
+      },
+      {
+        "tool": "lookup_support_policy",
+        "field": "REFUND"
+      }
+    ],
+    "issues": [],
+    "trace": [
+      {
+        "round": 1,
+        "runtime_metrics": {
+          "total_duration": 46797181750,
+          "load_duration": 694042,
+          "prompt_eval_count": 492,
+          "prompt_eval_duration": 87304000,
+          "eval_count": 734,
+          "eval_duration": 46626641000
+        }
+      },
+      {
+        "tool": "lookup_case_records",
+        "args": {
+          "case_id": "B"
+        },
+        "result": {
+          "case_id": "B",
+          "order_id": "ORD-3002",
+          "item": "raincoat",
+          "today": "2026-11-13",
+          "message": "I returned my raincoat on October 29. Inspection passed, but my refund is still pending.",
+          "claims": {
+            "found": null,
+            "intent": "refund_status",
+            "denies_receipt": false,
+            "returned_date": "2026-10-29",
+            "item": "raincoat"
+          },
+          "found": true,
+          "order_status": "returned",
+          "delivery_date": "2026-10-12",
+          "proof": null,
+          "tracking": null,
+          "expected_date": null,
+          "return_date": "2026-10-29",
+          "inspection": "passed",
+          "inspection_date": "2026-10-30",
+          "refund_status": "pending",
+          "observations": [
+            {
+              "date": "2026-10-12",
+              "field": "order_status",
+              "value": "delivered",
+              "source": "carrier"
+            },
+            {
+              "date": "2026-10-29",
+              "field": "order_status",
+              "value": "returned",
+              "source": "warehouse"
+            },
+            {
+              "date": "2026-10-29",
+              "field": "return_date",
+              "value": "2026-10-29",
+              "source": "warehouse"
+            },
+            {
+              "date": "2026-10-30",
+              "field": "inspection",
+              "value": "passed",
+              "source": "warehouse"
+            },
+            {
+              "date": "2026-10-30",
+              "field": "inspection_date",
+              "value": "2026-10-30",
+              "source": "warehouse"
+            },
+            {
+              "date": "2026-10-30",
+              "field": "refund_status",
+              "value": "pending",
+              "source": "payments"
+            }
+          ],
+          "policy": {
+            "version": "sim-v1",
+            "dnr_window_days": 7,
+            "refund_sla_business_days": 5
+          }
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "tool": "lookup_support_policy",
+        "args": {
+          "case_id": "B"
+        },
+        "result": {
+          "case_id": "B",
+          "version": "sim-v1",
+          "SAFE": "Recommend next steps only. Do not issue refunds, replacements, order changes, or carrier contact.",
+          "VERIFY": "Missing prerequisites, future events, or conflicting claims/records/history require clarification or human review. Passed inspection requires return evidence.",
+          "DNR": "For delivered-not-received reports within 7 calendar days (inclusive), recommend delivery investigation. Photo/signature proof is not required. Outside the window, seek human review.",
+          "REFUND": "Verify return evidence, passed inspection and its date, and refund status. Pending refunds are within SLA through 5 business days after inspection (Monday-Friday, exclude inspection day, no holidays). Escalate when today is after the deadline, including weekends. Explain completed refunds rather than escalating them.",
+          "TRACK": "For in-transit/shipped orders with usable tracking and an expected date not yet passed, share tracking or explain status. Missing dates require clarification; passed expected dates require review. Never fabricate delay or resolution."
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "round": 2,
+        "runtime_metrics": {
+          "total_duration": 83002675209,
+          "load_duration": 1983542,
+          "prompt_eval_count": 1124,
+          "prompt_eval_duration": 5932531000,
+          "eval_count": 2376,
+          "eval_duration": 76991870000
+        }
+      },
+      {
+        "final": {
+          "action": "payments_escalation",
+          "rationale": "Refund overdue beyond 5 business day SLA (inspection 2026-10-30, deadline 2026-11-06)",
+          "policy_id": "REFUND",
+          "citations": [
+            {
+              "tool": "lookup_case_records",
+              "field": "refund_status"
+            },
+            {
+              "tool": "lookup_case_records",
+              "field": "inspection_date"
+            },
+            {
+              "tool": "lookup_support_policy",
+              "field": "REFUND"
+            }
+          ]
+        },
+        "support_valid": true,
+        "action_eligible": true,
+        "support_errors": [],
+        "eligible_actions": [
+          "human_review",
+          "payments_escalation"
+        ]
+      },
+      {
+        "execution": {
+          "successful_tools": [
+            "lookup_case_records",
+            "lookup_support_policy"
+          ],
+          "retrieval_complete": true,
+          "rounds": 2,
+          "repair_attempts": 0
+        },
+        "raw_content": "{\n  \"action\": \"payments_escalation\",\n  \"rationale\": \"Refund overdue beyond 5 business day SLA (inspection 2026-10-30, deadline 2026-11-06)\",\n  \"policy_id\": \"REFUND\",\n  \"citations\": [\n    {\n      \"tool\": \"lookup_case_records\",\n      \"field\": \"refund_status\"\n    },\n    {\n      \"tool\": \"lookup_case_records\",\n      \"field\": \"inspection_date\"\n    },\n    {\n      \"tool\": \"lookup_support_policy\",\n      \"field\": \"REFUND\"\n    }\n  ]\n}",
+        "raw_action": "payments_escalation",
+        "policy_id": "REFUND"
+      }
+    ],
+    "model": "qwen3:4b",
+    "latency_seconds": 129.84
+  }
+}

@@ -1,0 +1,59 @@
+[
+  {
+    "case_id": "A", "order_id": "ORD-3001", "item": "e-reader", "today": "2026-11-13",
+    "message": "My e-reader says delivered, but I did not receive it.",
+    "claims": {"intent": "non_receipt", "denies_receipt": true, "item": "e-reader"},
+    "found": true, "order_status": "delivered", "delivery_date": "2026-11-10",
+    "proof": null, "tracking": null, "expected_date": null,
+    "return_date": null, "inspection": "unknown", "inspection_date": null, "refund_status": "unknown",
+    "observations": [
+      {"date": "2026-11-10", "field": "order_status", "value": "delivered", "source": "carrier"},
+      {"date": "2026-11-10", "field": "delivery_date", "value": "2026-11-10", "source": "carrier"}
+    ],
+    "policy": {"version": "sim-v1", "dnr_window_days": 7, "refund_sla_business_days": 5}
+  },
+  {
+    "case_id": "B", "order_id": "ORD-3002", "item": "raincoat", "today": "2026-11-13",
+    "message": "I returned my raincoat on October 29. Inspection passed, but my refund is still pending.",
+    "claims": {"intent": "refund_status", "returned_date": "2026-10-29", "item": "raincoat"},
+    "found": true, "order_status": "returned", "delivery_date": "2026-10-12",
+    "proof": null, "tracking": null, "expected_date": null,
+    "return_date": "2026-10-29", "inspection": "passed", "inspection_date": "2026-10-30", "refund_status": "pending",
+    "observations": [
+      {"date": "2026-10-12", "field": "order_status", "value": "delivered", "source": "carrier"},
+      {"date": "2026-10-29", "field": "order_status", "value": "returned", "source": "warehouse"},
+      {"date": "2026-10-29", "field": "return_date", "value": "2026-10-29", "source": "warehouse"},
+      {"date": "2026-10-30", "field": "inspection", "value": "passed", "source": "warehouse"},
+      {"date": "2026-10-30", "field": "inspection_date", "value": "2026-10-30", "source": "warehouse"},
+      {"date": "2026-10-30", "field": "refund_status", "value": "pending", "source": "payments"}
+    ],
+    "policy": {"version": "sim-v1", "dnr_window_days": 7, "refund_sla_business_days": 5}
+  },
+  {
+    "case_id": "C", "order_id": "ORD-3003", "item": "kettle", "today": "2026-11-13",
+    "message": "I returned the kettle on October 30. Please tell me when my refund will arrive.",
+    "claims": {"intent": "refund_status", "returned_date": "2026-10-30", "item": "kettle"},
+    "found": true, "order_status": "delivered", "delivery_date": "2026-10-20",
+    "proof": "Carrier photo", "tracking": null, "expected_date": null,
+    "return_date": null, "inspection": "unknown", "inspection_date": null, "refund_status": "unknown",
+    "observations": [
+      {"date": "2026-10-20", "field": "order_status", "value": "delivered", "source": "carrier"},
+      {"date": "2026-10-20", "field": "delivery_date", "value": "2026-10-20", "source": "carrier"}
+    ],
+    "policy": {"version": "sim-v1", "dnr_window_days": 7, "refund_sla_business_days": 5}
+  },
+  {
+    "case_id": "D", "order_id": "ORD-3004", "item": "keyboard", "today": "2026-11-13",
+    "message": "Can you tell me where my keyboard is?",
+    "claims": {"intent": "tracking", "item": "keyboard"},
+    "found": true, "order_status": "in_transit", "delivery_date": null,
+    "proof": null, "tracking": "Shipped November 10; arrived at regional hub November 12.", "expected_date": "2026-11-16",
+    "return_date": null, "inspection": "unknown", "inspection_date": null, "refund_status": "unknown",
+    "observations": [
+      {"date": "2026-11-10", "field": "order_status", "value": "shipped", "source": "carrier"},
+      {"date": "2026-11-12", "field": "order_status", "value": "in_transit", "source": "carrier"},
+      {"date": "2026-11-12", "field": "tracking", "value": "Shipped November 10; arrived at regional hub November 12.", "source": "carrier"}
+    ],
+    "policy": {"version": "sim-v1", "dnr_window_days": 7, "refund_sla_business_days": 5}
+  }
+]
