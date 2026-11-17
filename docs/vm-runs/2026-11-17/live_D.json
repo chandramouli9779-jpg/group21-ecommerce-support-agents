@@ -1,0 +1,177 @@
+{
+  "model": "qwen3:4b",
+  "captured_at": "2026-11-17T12:48:30.753890+00:00",
+  "case_id": "D",
+  "today": "2026-11-13",
+  "settings": {
+    "temperature": 0,
+    "reasoning": null,
+    "num_predict": 2400,
+    "num_ctx": 8192,
+    "base_url": "http://127.0.0.1:11434",
+    "client_kwargs": {
+      "timeout": 180,
+      "trust_env": false
+    }
+  },
+  "max_rounds": 6,
+  "result": {
+    "agent": "LLM (Ollama + tools)",
+    "case_id": "D",
+    "action": "share_tracking",
+    "rationale": "Order in transit with tracking info; expected delivery date not yet passed",
+    "status": "ok",
+    "citations": [
+      {
+        "tool": "lookup_case_records",
+        "field": "tracking"
+      },
+      {
+        "tool": "lookup_support_policy",
+        "field": "TRACK"
+      }
+    ],
+    "issues": [],
+    "trace": [
+      {
+        "round": 1,
+        "runtime_metrics": {
+          "total_duration": 259347825402,
+          "load_duration": 4132656,
+          "prompt_eval_count": 492,
+          "prompt_eval_duration": 3022422000,
+          "eval_count": 1219,
+          "eval_duration": 256042895000
+        }
+      },
+      {
+        "tool": "lookup_case_records",
+        "args": {
+          "case_id": "D"
+        },
+        "result": {
+          "case_id": "D",
+          "order_id": "ORD-3004",
+          "item": "keyboard",
+          "today": "2026-11-13",
+          "message": "Can you tell me where my keyboard is?",
+          "claims": {
+            "found": null,
+            "intent": "tracking",
+            "denies_receipt": false,
+            "returned_date": null,
+            "item": "keyboard"
+          },
+          "found": true,
+          "order_status": "in_transit",
+          "delivery_date": null,
+          "proof": null,
+          "tracking": "Shipped November 10; arrived at regional hub November 12.",
+          "expected_date": "2026-11-16",
+          "return_date": null,
+          "inspection": "unknown",
+          "inspection_date": null,
+          "refund_status": "unknown",
+          "observations": [
+            {
+              "date": "2026-11-10",
+              "field": "order_status",
+              "value": "shipped",
+              "source": "carrier"
+            },
+            {
+              "date": "2026-11-12",
+              "field": "order_status",
+              "value": "in_transit",
+              "source": "carrier"
+            },
+            {
+              "date": "2026-11-12",
+              "field": "tracking",
+              "value": "Shipped November 10; arrived at regional hub November 12.",
+              "source": "carrier"
+            }
+          ],
+          "policy": {
+            "version": "sim-v1",
+            "dnr_window_days": 7,
+            "refund_sla_business_days": 5
+          }
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "tool": "lookup_support_policy",
+        "args": {
+          "case_id": "D"
+        },
+        "result": {
+          "case_id": "D",
+          "version": "sim-v1",
+          "SAFE": "Recommend next steps only. Do not issue refunds, replacements, order changes, or carrier contact.",
+          "VERIFY": "Missing prerequisites, future events, or conflicting claims/records/history require clarification or human review. Passed inspection requires return evidence.",
+          "DNR": "For delivered-not-received reports within 7 calendar days (inclusive), recommend delivery investigation. Photo/signature proof is not required. Outside the window, seek human review.",
+          "REFUND": "Verify return evidence, passed inspection and its date, and refund status. Pending refunds are within SLA through 5 business days after inspection (Monday-Friday, exclude inspection day, no holidays). Escalate when today is after the deadline, including weekends. Explain completed refunds rather than escalating them.",
+          "TRACK": "For in-transit/shipped orders with usable tracking and an expected date not yet passed, share tracking or explain status. Missing dates require clarification; passed expected dates require review. Never fabricate delay or resolution."
+        },
+        "success": true,
+        "repeated": false,
+        "coverage_added": true
+      },
+      {
+        "round": 2,
+        "runtime_metrics": {
+          "total_duration": 358308082483,
+          "load_duration": 4157636,
+          "prompt_eval_count": 1019,
+          "prompt_eval_duration": 46480391000,
+          "eval_count": 1270,
+          "eval_duration": 311583595000
+        }
+      },
+      {
+        "final": {
+          "action": "share_tracking",
+          "rationale": "Order in transit with tracking info; expected delivery date not yet passed",
+          "policy_id": "TRACK",
+          "citations": [
+            {
+              "tool": "lookup_case_records",
+              "field": "tracking"
+            },
+            {
+              "tool": "lookup_support_policy",
+              "field": "TRACK"
+            }
+          ]
+        },
+        "support_valid": true,
+        "action_eligible": true,
+        "support_errors": [],
+        "eligible_actions": [
+          "human_review",
+          "explain_status",
+          "share_tracking"
+        ]
+      },
+      {
+        "execution": {
+          "successful_tools": [
+            "lookup_case_records",
+            "lookup_support_policy"
+          ],
+          "retrieval_complete": true,
+          "rounds": 2,
+          "repair_attempts": 0
+        },
+        "raw_content": "{\n  \"action\": \"share_tracking\",\n  \"rationale\": \"Order in transit with tracking info; expected delivery date not yet passed\",\n  \"policy_id\": \"TRACK\",\n  \"citations\": [\n    {\n      \"tool\": \"lookup_case_records\",\n      \"field\": \"tracking\"\n    },\n    {\n      \"tool\": \"lookup_support_policy\",\n      \"field\": \"TRACK\"\n    }\n  ]\n}",
+        "raw_action": "share_tracking",
+        "policy_id": "TRACK"
+      }
+    ],
+    "model": "qwen3:4b",
+    "latency_seconds": 617.83
+  }
+}

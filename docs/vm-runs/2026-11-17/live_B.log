@@ -1,0 +1,12 @@
+============================= test session starts ==============================
+platform linux -- Python 3.12.3, pytest-9.2.0, pluggy-1.7.0 -- /home/s2025paml525/workspace/Chandramouli-Grp21Work/group21-ecommerce-support-agents/implementation-atindra/.venv/bin/python
+cachedir: .pytest_cache
+rootdir: /home/s2025paml525/workspace/Chandramouli-Grp21Work/group21-ecommerce-support-agents/implementation-atindra
+configfile: pytest.ini
+plugins: langsmith-0.14.17, anyio-4.16.0
+collecting ... collected 1 item
+
+tests/test_llm.py::test_live_qwen3_four_cases[B] B: action=payments_escalation status=ok latency_seconds=784.57
+PASSED
+
+======================== 1 passed in 786.35s (0:13:06) =========================

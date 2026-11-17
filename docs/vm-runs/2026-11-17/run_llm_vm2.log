@@ -1,0 +1,52 @@
+
+=== Scenario A: Delivered but not received
+  Policy-expected: open_carrier_investigation
+  [DIFF] LLM -> request_clarification_and_flag   (134.7 s)
+    round 1: get_order_status({'order_id': 'ORD-1001'})
+    round 1: get_delivery_events({'order_id': 'ORD-1001'})
+    round 1: get_refund_status({'order_id': 'ORD-1001'})
+    round 1: search_return_policy({'query': 'My order ORD-1001 shows as delivered on 2 November, but I never received the package. Nothing was at my door.'})
+  - Tools called (4 calls, 0 repeated, 0 nudges): get_delivery_events, get_order_status, get_refund_status, search_return_policy.
+  - Evidence check: PASS (4 distinct tools, minimum 2).
+  - Model explanation: The tool results show that there is no return or refund record for the order, and the customer's issue relates to the delivery status. The action of requesting clarification and flagging the record for review aligns with the policy POL-VER, which advises against taking any refund or replacement action if the records do not match. This ensures the customer's details are reviewed for potential resolution.
+  - Claim check: no unsupported claims found.
+  - Action check: request_clarification_and_flag: record is consistent; clarification may be unnecessary.
+
+=== Scenario B: Refund not updated after passed inspection
+  Policy-expected: escalate_to_payments
+  [OK ] LLM -> escalate_to_payments   (129.8 s)
+    round 1: get_order_status({'order_id': 'ORD-1002'})
+    round 1: get_delivery_events({'order_id': 'ORD-1002'})
+    round 1: get_refund_status({'order_id': 'ORD-1002'})
+    round 1: search_return_policy({'query': 'returned running shoes passed inspection but refund pending'})
+  - Tools called (4 calls, 0 repeated, 0 nudges): get_delivery_events, get_order_status, get_refund_status, search_return_policy.
+  - Evidence check: PASS (4 distinct tools, minimum 2).
+  - Model explanation: The refund is still pending after the item passed inspection, and the policy indicates that if the refund is still pending after 5 business days, the case should be escalated to the payments team. This aligns with the tool result showing the refund status as 'pending' and the inspection status as 'passed'.
+  - Claim check: no unsupported claims found.
+  - Action check: the data meets this action's conditions.
+
+=== Scenario C: Conflicting / incomplete information
+  Policy-expected: request_clarification_and_flag
+  [OK ] LLM -> request_clarification_and_flag   (109.8 s)
+    round 1: get_order_status({'order_id': 'ORD-1003'})
+    round 1: get_delivery_events({'order_id': 'ORD-1003'})
+    round 1: get_refund_status({'order_id': 'ORD-1003'})
+    round 1: search_return_policy({'query': 'I ordered a brown backpack on ORD-1003 and it was delivered damaged.'})
+  - Tools called (4 calls, 0 repeated, 0 nudges): get_delivery_events, get_order_status, get_refund_status, search_return_policy.
+  - Evidence check: PASS (4 distinct tools, minimum 2).
+  - Model explanation: The customer's issue matches the 'Delivered but not received' policy, but there is no proof of delivery. The order has no return or refund record, and the tracking details are unknown. We need to ask the customer to confirm their details and flag the record for review.
+  - Claim check: Treats the order as delivered, but the record status is 'shipped'.
+  - Action check: the data meets this action's conditions.
+
+=== Scenario D: Order in transit, within expected date
+  Policy-expected: share_tracking
+  [DIFF] LLM -> request_clarification_and_flag   (117.3 s)
+    round 1: get_order_status({'order_id': 'ORD-1004'})
+    round 1: get_delivery_events({'order_id': 'ORD-1004'})
+    round 1: get_refund_status({'order_id': 'ORD-1004'})
+    round 1: search_return_policy({'query': 'Where is my order ORD-1004? I placed it on 3 November.'})
+  - Tools called (4 calls, 0 repeated, 0 nudges): get_delivery_events, get_order_status, get_refund_status, search_return_policy.
+  - Evidence check: PASS (4 distinct tools, minimum 2).
+  - Model explanation: The order does not have a return or refund record, and the customer's query about the order's location was addressed by checking the return policy. The fact that there is no return or refund record indicates that the order is not eligible for a replacement or refund. The customer should be asked to confirm the order details and flag the record for review.
+  - Claim check: no unsupported claims found.
+  - Action check: request_clarification_and_flag: record is consistent; clarification may be unnecessary.
