@@ -96,14 +96,14 @@ on 3.13.5 (his machine) and 3.12.3 (lab VMs).
 
 ## Rubric checklist
 
-| Criterion | Marks | Chandramouli | Atindra |
-|---|---|---|---|
-| Five classical agents | 5 | [`agents/`](implementation-chandramouli/agents/): rules, internal state, uniform-cost plan search, weighted utility, success counts | [`agents/`](implementation-atindra/agents/): rules, belief state, breadth-first plan search, weighted utility over eligible actions, success counts |
-| LLM agent and tool calling | 4 | [`agents/llm_agent.py`](implementation-chandramouli/agents/llm_agent.py): Ollama via LangChain, 4 read-only tools, at least 2 required, claim and action checks | [`agents/llm.py`](implementation-atindra/agents/llm.py): Ollama via LangChain, 2 case-bound tools, both required, every citation checked against tool results |
-| Shared scenarios and testing | 3 | 4 scenarios (A-D), one shared case file for all six agents; 64 tests | 4 cases (A-D), one shared case for all six agents; 275 offline and 4 live tests |
-| Streamlit UI and comparison | 3 | [`app.py`](implementation-chandramouli/app.py): comparison table, per-agent reasoning, all-scenarios grid, LLM check results | [`app.py`](implementation-atindra/app.py): comparison, expandable agent details, downloadable comparison |
-| Learning and evaluation | 3 | Feedback buttons update success/failure counts; output checks; limitations section | Recorded failures switch the decision (screenshots); citation and eligibility checks; limitations section |
-| Documentation and demonstration | 2 | README, setup, 9 screenshots, test log of 14 runs, changelog | README, setup, screenshots, results index with exports |
+| Criterion | Chandramouli | Atindra |
+|---|---|---|
+| Five classical agents | [`agents/`](implementation-chandramouli/agents/): rules, internal state, uniform-cost plan search, weighted utility, success counts | [`agents/`](implementation-atindra/agents/): rules, belief state, breadth-first plan search, weighted utility over eligible actions, success counts |
+| LLM agent and tool calling | [`agents/llm_agent.py`](implementation-chandramouli/agents/llm_agent.py): Ollama via LangChain, 4 read-only tools, at least 2 required, claim and action checks | [`agents/llm.py`](implementation-atindra/agents/llm.py): Ollama via LangChain, 2 case-bound tools, both required, every citation checked against tool results |
+| Shared scenarios and testing | 4 scenarios (A-D), one shared case file for all six agents; 64 tests | 4 cases (A-D), one shared case for all six agents; 275 offline and 4 live tests |
+| Streamlit UI and comparison | [`app.py`](implementation-chandramouli/app.py): comparison table, per-agent reasoning, all-scenarios grid, LLM check results | [`app.py`](implementation-atindra/app.py): comparison, expandable agent details, downloadable comparison |
+| Learning and evaluation | Feedback buttons update success/failure counts; output checks; limitations section | Recorded failures switch the decision (screenshots); citation and eligibility checks; limitations section |
+| Documentation and demonstration | README, setup, 9 screenshots, test log of 14 runs, changelog | README, setup, screenshots, results index with exports |
 
 ## How the two implementations differ
 
