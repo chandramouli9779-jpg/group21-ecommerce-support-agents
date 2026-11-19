@@ -110,7 +110,7 @@ on 3.13.5 (his machine) and 3.12.3 (lab VMs).
 | Area | Chandramouli | Atindra |
 |---|---|---|
 | Data structure | Plain dictionaries, shared action list | Typed data models (Pydantic) with action and status lists |
-| Policy rules | Each agent applies the shared policy limits itself | One shared eligibility layer; agents choose only from allowed actions |
+| Policy rules | Each agent applies the shared policy limits itself | Goal based, utility based and learning choose from eligible actions. Simple reflex and the LLM can give an ineligible action, which is then flagged |
 | Customer message | Classical agents read the free-text message | Customer claims are structured in the case data |
 | LLM tools | 4, named as suggested in the instructions | 2 grouped tools, restricted to the selected case |
 | LLM output checks | Claim check on the explanation text; action and safety checks | Strict JSON; citations verified against tool results; one repair attempt; eligibility |
@@ -158,15 +158,14 @@ environment).
    consistently on each side. Each environment on its own gave repeatable output.
 4. **Atindra's stricter design gave the same decisions on two machines.** Typed JSON answers with
    required citations are one possible reason; we did not test this.
-5. **Checks that report rather than override keep the model's real behaviour visible.** Both
+5. **Checks that report rather than override keep the model's real behavior visible.** Both
    implementations flag a wrong or ungrounded answer instead of replacing it, so the comparison shows
    what the model actually did.
 6. **A shared eligibility layer reduces duplicated rules.** In Chandramouli's implementation each agent
-   applies the same hand-coded limits; in Atindra's, agents choose from actions a single layer allows.
+   applies the same hand-coded limits; in Atindra's, Goal based, utility based and learning choose from
+   eligible actions. Simple reflex and the LLM can give an ineligible action, which is then flagged
 7. **CPU-only inference is slow.** On the lab VMs, `qwen3:4b` took 8-13 minutes per case (about 10 times
-   slower than on Atindra's machine) and `qwen3:1.7b` about 2 minutes per scenario. Running one case at a
-   time avoided a VM crash that occurred during a four-case batch; memory was not exhausted, and the cause
-   of the crash was not determined.
+   slower than on Atindra's machine) and `qwen3:1.7b` about 2 minutes per scenario.
 
 ## Limitations
 
