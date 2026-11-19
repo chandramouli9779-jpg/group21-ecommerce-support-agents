@@ -34,6 +34,7 @@ joined into this repository on 15 November without rewriting any commit.
 
 | To check | Go to |
 |---|---|
+| Full submission document and step-by-step evaluator guide (Word) | [`Group21_MiniProject1_Submission.docx`](Group21_MiniProject1_Submission.docx) |
 | Requirements met by each implementation | [Rubric checklist](#rubric-checklist) below |
 | How the two differ | [Comparison](#how-the-two-implementations-differ) |
 | Results side by side | [Results](#results) |
@@ -46,6 +47,7 @@ joined into this repository on 15 November without rewriting any commit.
 ```
 group21-ecommerce-support-agents/
 ├── README.md                        This file
+├── Group21_MiniProject1_Submission.docx   Submission document and evaluator guide
 ├── docs/
 │   ├── VM_TEST_LOG.md               Both implementations on the lab VMs; repeatability findings
 │   └── vm-runs/2026-11-17/          Raw VM output (logs and run records)
