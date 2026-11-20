@@ -36,6 +36,7 @@ joined into this repository on 15 November without rewriting any commit.
 |---|---|
 | Full submission document and step-by-step evaluator guide (Word) | [`Group21_MiniProject1_Submission.docx`](Group21_MiniProject1_Submission.docx) |
 | Requirements met by each implementation | [Rubric checklist](#rubric-checklist) below |
+| Architecture of each implementation (diagrams) | [Architecture](#architecture) |
 | How the two differ | [Comparison](#how-the-two-implementations-differ) |
 | Results side by side | [Results](#results) |
 | Runs on the lab VMs, and repeatability | [`docs/VM_TEST_LOG.md`](docs/VM_TEST_LOG.md) |
@@ -48,6 +49,8 @@ joined into this repository on 15 November without rewriting any commit.
 group21-ecommerce-support-agents/
 ├── README.md                        This file
 ├── Group21_MiniProject1_Submission.docx   Submission document and evaluator guide
+├── Chandramouli-Implementation-Arch.jpeg  Architecture diagram, Chandramouli's implementation
+├── Atindra-Implementation-Arch.jpeg       Architecture diagram, Atindra's implementation
 ├── docs/
 │   ├── VM_TEST_LOG.md               Both implementations on the lab VMs; repeatability findings
 │   └── vm-runs/2026-11-17/          Raw VM output (logs and run records)
@@ -106,6 +109,25 @@ on 3.13.5 (his machine) and 3.12.3 (lab VMs).
 | Streamlit UI and comparison | [`app.py`](implementation-chandramouli/app.py): comparison table, per-agent reasoning, all-scenarios grid, LLM check results | [`app.py`](implementation-atindra/app.py): comparison, expandable agent details, downloadable comparison |
 | Learning and evaluation | Feedback buttons update success/failure counts; output checks; limitations section | Recorded failures switch the decision (screenshots); citation and eligibility checks; limitations section |
 | Documentation and demonstration | README, setup, 9 screenshots, test log of 14 runs, changelog | README, setup, screenshots, results index with exports |
+
+## Architecture
+
+The diagrams show how a selected scenario flows through each implementation to the comparison
+table.
+
+**Chandramouli's implementation:** `percepts.py` turns the shared case file, including the
+free-text customer message, into facts used by all five classical agents. The LLM agent works
+separately, through a tool loop over four read-only tools; its post-checks report problems
+without overriding the answer.
+
+![Architecture of Chandramouli's implementation](Chandramouli-Implementation-Arch.jpeg)
+
+**Atindra's implementation:** the typed case is checked by `domain.py` (`facts()` and
+`eligibility()`), which four of the classical agents and the LLM checks use.
+`validate_result()` flags an ineligible action as a warning without changing it, and every
+result carries a status.
+
+![Architecture of Atindra's implementation](Atindra-Implementation-Arch.jpeg)
 
 ## How the two implementations differ
 
